@@ -29,27 +29,27 @@ $typeIconsDefault = [
 ];
 
 $typeIcons = [
-	types::INFO => array_merge($typeIconsDefault, [
+	"INFO" => array_merge($typeIconsDefault, [
 		"typeName" => "Informace",
 		"icon" => "fa-info-circle",
 		"markerColor" => "blue"
 	]),
-	types::BONUS => array_merge($typeIconsDefault, [
+	"BONUS" => array_merge($typeIconsDefault, [
 		"typeName" => "Žolík",
 		"icon" => "fa-bolt",
 		"markerColor" => "yellow"
 	]),
-	types::SERIE_START => array_merge($typeIconsDefault, [
+	"SERIE_START" => array_merge($typeIconsDefault, [
 		"typeName" => "Start série",
 		"icon" => "fa-clock-o",
 		"markerColor" => "blue"
 	]),
-	types::SERIE => array_merge($typeIconsDefault, [
+	"SERIE" => array_merge($typeIconsDefault, [
 		"typeName" => "Pokračování série",
 		"icon" => "fa-circle-o-notch",
 		"markerColor" => "blue"
 	]),
-	types::MEGATASK => array_merge($typeIconsDefault, [
+	"MEGATASK" => array_merge($typeIconsDefault, [
 		"typeName" => "Megaúkol",
 		"icon" => "fa-arrows-alt",
 		"markerColor" => "blue"
@@ -57,19 +57,18 @@ $typeIcons = [
 ];
 
 echo "function addMarkers() {
-markers = L.layerGroup();
-
-arrowSymbol = L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true, className: 'edge'}});\n";
+markersLayer = L.layerGroup();\n";
 
 // Default reload time: 1 minute
 $reload = time() + 60;
+$codeIndex = 0;
 foreach($sites as $code => $site) {
 	// Is visible?
 	if (IsVisible($site)) {
 		$params = $typeIcons[$site["type"]];
 		$title = $params["typeName"].": ".$site["name"];
 		$info = "<h4>".$site["name"]."</h4><b>Typ stanoviště:</b>".$params["typeName"]."<br><br>".$site["info"];
-		$script = "";
+		$script = "map.on('popupclose', function() { $('.edgeHighlighted').hide(); openedMarker=''; });\n";
 		$opacity = 1.0;
 
 		// Determine state
@@ -83,7 +82,7 @@ foreach($sites as $code => $site) {
 			}
 		} else if (array_key_exists("time_limit", $site)) {
 			if (time() - $site["__visible_from_timestamp"] <= 60*$site["time_limit"]) {
-				echo "L.marker(".json_encode($site["position"]).",{icon: pulsingIcon}).addTo(markers);\n";
+				echo "L.marker(".json_encode($site["position"]).",{icon: pulsingIcon}).addTo(markersLayer);\n";
 				$reload = min($reload, $site["__visible_from_timestamp"] + 60*$site["time_limit"]);
 				$to_microseconds = ($site["__visible_from_timestamp"] + 60*$site["time_limit"]) * 1000;
 				$info .= "<br><b>Zbývající čas:</b> <script>alert(1);</script> <span id='countdown".$index."'></span>";
@@ -97,32 +96,41 @@ foreach($sites as $code => $site) {
 		}
 
 		echo "info = ".json_encode($info).";\n";
-		echo "L.marker(".json_encode($site["position"]).",{title: '".$title."', opacity: ".$opacity.", icon: L.ExtraMarkers.icon(\n".json_encode($params)."\n)}).addTo(markers).bindPopup(info);\n\n";
+		echo "marker[".$codeIndex."] = L.marker(".json_encode($site["position"]).",{
+			title: '".$title."', opacity: ".$opacity.", icon: L.ExtraMarkers.icon(\n".json_encode($params)."\n)
+		}).addTo(markersLayer);\n";
+		echo "marker[".$codeIndex."].bindPopup(info);\n";
+		echo "marker[".$codeIndex."].on('click', function() { openedMarker = ".$codeIndex."; $('.edgeFrom".$codeIndex."').show(); });";
 
 		foreach ($site["edges"] as $i => $edge) {
-			echo "var arrowHead".$code.$i." = L.polylineDecorator(
-				L.polyline(".json_encode([$site["position"], $sites[$edge]["position"]]).", {className: 'edge'}).addTo(markers)
-			).addTo(markers);\n";
-			echo "arrowHead".$code.$i.".setPatterns([{offset: '50%', symbol: arrowSymbol}]);\n";
+			$arrowIndex = $codeIndex."i".$i;
+			foreach (["edge", "edgeHighlighted edgeFrom".$codeIndex] as $edgeClass) {
+				echo "arrowSymbol = L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true, className: '".$edgeClass." edgeArrow'}});\n";
+				echo "arrowHead['".$arrowIndex."'] = L.polylineDecorator(
+					L.polyline(".json_encode([$site["position"], $sites[$edge]["position"]]).", {className: '".$edgeClass." edgeFrom".$codeIndex."'}).addTo(markersLayer)
+				).addTo(markersLayer);\n";
+				echo "arrowHead['".$arrowIndex."'].setPatterns([{offset: '50%', symbol: arrowSymbol}]);\n";
 
-
-			echo "var arrowOffset".$code.$i." = 0;
-			window.setInterval(function() {
-			arrowHead".$code.$i.".setPatterns([
-			    {offset: arrowOffset".$code.$i."+'%', repeat: 0, symbol: arrowSymbol}
-			])
-			if(++arrowOffset".$code.$i." > 100)
-			    arrowOffset".$code.$i." = 0;
-			}, 100);";
-
+				// Animation:
+				//echo "arrowOffset['".$arrowIndex."'] = 0;
+				//window.setInterval(function() {
+				//	arrowHead['".$arrowIndex."'].setPatterns([{offset: (arrowOffset['".$arrowIndex."']++ % 100)+'%', repeat: 0, symbol: arrowSymbol}])
+				//}, 100);";
+			}
 		}
 
 		echo "\n\n";
 		echo $script;
+
 	}
+	$codeIndex++;
 }
 
-echo "markers.addTo(map);
+echo "setTimeout(function() {
+	if (openedMarker != '') { marker[openedMarker].fireEvent('click'); }
+}, 200);\n";
+
+echo "markersLayer.addTo(map);
 setTimeout(function() {
 	reloadMarkers();
 }, ".(($reload - time())*1000).");

@@ -109,13 +109,17 @@
 			heartbeat: 2
 		});
 
-		markers = L.layerGroup();
+		var openedMarker = "";
+		var marker = [];
+		var arrowHead = [];
+		var arrowOffset = [];
+		markersLayer = L.layerGroup();
 		function reloadMarkers() {
 			$.ajax({
 				url: 'get_markers.php',
 				dataType: 'script',
 				success: function() {
-					map.removeLayer(markers)
+					map.removeLayer(markersLayer)
 					addMarkers();
 				}
 			});

@@ -19,12 +19,11 @@ else
 {
 	dibi::connect(array(
 		'driver'   => 'mysqli',
-		'host'     => 'mysqli',
-		'username' => 'smf',
+		'host'     => '127.0.0.1',
+		'username' => 'dbuser',
 		'password' => '',
-		'database' => 'smf',
+		'database' => 'sksp2016_nocni_hra',
 		'charset'  => 'utf8',
 	));
 }
-//dibi::getSubstitutes()->db_prefix='zsmf2015_kiosk_';
 ?>

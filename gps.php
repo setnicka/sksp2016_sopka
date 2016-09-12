@@ -8,7 +8,7 @@ if (isset($_GET["lat"]) && preg_match("/^-?\d+\.\d+$/", $_GET["lat"])
  && isset($_GET["code"]) && preg_match("/^\w+$/", $_GET["code"])
 ) {
 	$args = [
-		"code" => $_GET["code"],
+		"code" => strtolower($_GET["code"]),
 		"lat" => $_GET["lat"],
 		"lon" => $_GET["lon"]
 	];
