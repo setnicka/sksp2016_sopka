@@ -1,0 +1,23 @@
+.completed {
+	/*opacity: 0.7;*/
+}
+.losed {
+	opacity: 0.4;
+}
+
+#communicator {
+	float: right;
+	text-align: center;
+}
+
+.alertbox {
+	position: absolute;
+	z-index: 1000;
+	width: 100%;
+}
+.alert {
+	width: 300px;
+	margin: 0px auto;
+	box-shadow: 3px 3px 4px 2px #666;
+}
+
