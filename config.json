@@ -1,55 +1,626 @@
 {
+"gameStart": "2016-09-10 11:30",
 "showPositions": {
 	"monsters": ["jirka"],
 	"targets": [],
 	"teams": ["A", "B"]
 },
-"sites": {
-	"konik": {
-		"name": "První stanoviště",
-		"type": "INFO",
-		"position": [49.9395375,13.3838904],
-		"edges": ["kombajn", "pejsek"],
-		"info": "Za třetím kmenem vlevo",
-		"secret": "Něco tajného viditelného po zadání kódu"
-	},
-	"kombajn": {
-		"name": "Šikmá palma",
-		"type": "SERIE_START",
-		"position": [49.9495375,13.3838904],
-		"edges": ["konik", "pejsek"],
-		"info": "Zespoda lavičky",
-		"secret": "Něco tajného viditelného po zadání kódu",
-		"visible_from_minute": 5,
-		"time_limit": 10
-	},
-	"pejsek": {
-		"name": "U baru",
-		"type": "SERIE",
-		"position": [49.9495375,13.3638904],
-		"edges": [],
-		"info": "Zespoda lavičky",
-		"secret": "Něco tajného viditelného po zadání kódu",
-		"visible_after": ["kombajn"],
-		"time_limit": 10
-	},
-	"task001": {
-		"name": "První úkol",
-		"type": "MEGATASK",
-		"position": [49.9595375,13.3838904],
-		"edges": [],
-		"info": "Za třetím kmenem vlevo",
-		"secret": "XYZ",
-		"time_limit": 150
-	},
-	"bonus": {
-		"name": "Bonus",
-		"type": "BONUS",
-		"position": [49.9595375,13.3838904],
-		"edges": [],
-		"info": "Za třetím kmenem vlevo",
-		"secret": "XYZ",
-		"visible_after": ["task001", "pejsek"]
-	}
+"train": {
+	"started": false,
+	"starFrom": "bar",
+	"hopTime": 15
+},
+"sites":
+{
+   "bar" : {
+      "edges" : [
+         "*novinka"
+      ],
+      "name" : "vzduch",
+      "position" : [
+         "49.94994",
+         "13.33968"
+      ],
+      "type" : "MEGATASK"
+   },
+   "castka" : {
+      "edges" : [
+         "milion"
+      ],
+      "name" : "scena",
+      "position" : [
+         "49.93978",
+         "13.39150"
+      ]
+   },
+   "choroba" : {
+      "edges" : [
+         "obvod",
+         "*castka",
+         "obsah",
+         "bar"
+      ],
+      "name" : "zasada",
+      "position" : [
+         "49.93677",
+         "13.39751"
+      ],
+      "visible_from_minute": 0
+   },
+   "cibule" : {
+      "edges" : [
+         "*dopis"
+      ],
+      "name" : "volba",
+      "position" : [
+         "49.94666",
+         "13.41320"
+      ],
+      "type" : "MEGATASK"
+   },
+   "cit" : {
+      "edges" : [
+         "*kavarna"
+      ],
+      "name" : "kapsa",
+      "position" : [
+         "49.94263",
+         "13.37425"
+      ],
+      "type" : "MEGATASK"
+   },
+   "dopad" : {
+      "edges" : [
+         "*ustav",
+         "*pravda",
+         "novina",
+         "pobocka"
+      ],
+      "name" : "proces",
+      "position" : [
+         "49.93933",
+         "13.37371"
+      ]
+   },
+   "dopis" : {
+      "edges" : [
+         "*salon"
+      ],
+      "name" : "verze",
+      "position" : [
+         "49.93199",
+         "13.39530"
+      ],
+      "type" : "MEGATASK"
+   },
+   "dvojice" : {
+      "edges" : [
+         "pobocka",
+         "zvyk",
+         "*milion",
+         "novina"
+      ],
+      "name" : "pricina",
+      "position" : [
+         "49.93803",
+         "13.37044"
+      ]
+   },
+   "efekt" : {
+      "edges" : [
+         "*cit"
+      ],
+      "name" : "sal",
+      "position" : [
+         "49.93061",
+         "13.33030"
+      ],
+      "type" : "MEGATASK"
+   },
+   "hrozba" : {
+      "edges" : [
+         "posadka",
+         "promena",
+         "plyn",
+         "*ucta"
+      ],
+      "name" : "lzicka",
+      "position" : [
+         "49.93158",
+         "13.35398"
+      ]
+   },
+   "kaple" : {
+      "edges" : [
+         "sektor",
+         "pobocka",
+         "napad",
+         "*obloha"
+      ],
+      "name" : "ustav",
+      "position" : [
+         "49.93188",
+         "13.40436"
+      ]
+   },
+   "kavarna" : {
+      "edges" : [
+         "*navrat"
+      ],
+      "name" : "ucel",
+      "position" : [
+         "49.95656",
+         "13.38202"
+      ],
+      "type" : "MEGATASK"
+   },
+   "legrace" : {
+      "edges" : [
+         "pruh",
+         "obsah",
+         "*posadka",
+         "novina"
+      ],
+      "name" : "zvyk",
+      "position" : [
+         "49.94524",
+         "13.37698"
+      ]
+   },
+   "milion" : {
+      "edges" : [
+         "*obvod",
+         "vzor",
+         "posadka",
+         "pravda"
+      ],
+      "name" : "humor",
+      "position" : [
+         "49.94748",
+         "13.39110"
+      ]
+   },
+   "mira" : {
+      "edges" : [
+         "*ztrata"
+      ],
+      "name" : "budova",
+      "position" : [
+         "49.93098",
+         "13.32542"
+      ],
+      "type" : "MEGATASK"
+   },
+   "napad" : {
+      "edges" : [
+         "bar",
+         "*stab",
+         "obsah",
+         "novina"
+      ],
+      "name" : "kalhoty",
+      "position" : [
+         "49.92727",
+         "13.33574"
+      ]
+   },
+   "navrat" : {
+      "edges" : [
+         "*trava",
+         "milion",
+         "*ustav",
+         "efekt"
+      ],
+      "name" : "slza",
+      "position" : [
+         "49.94968",
+         "13.33169"
+      ]
+   },
+   "norma" : {
+      "edges" : [
+         "*reakce"
+      ],
+      "name" : "komise",
+      "position" : [
+         "49.94737",
+         "13.33379"
+      ],
+      "type" : "MEGATASK"
+   },
+   "novina" : {
+      "edges" : [
+         "zvyk",
+         "bar",
+         "*princip",
+         "program"
+      ],
+      "name" : "kura",
+      "position" : [
+         "49.91987",
+         "13.35651"
+      ]
+   },
+   "novinka" : {
+      "edges" : [
+         "*norma"
+      ],
+      "name" : "vtip",
+      "position" : [
+         "49.93924",
+         "13.33198"
+      ],
+      "type" : "MEGATASK"
+   },
+   "obloha" : {
+      "edges" : [
+         "*ulice",
+         "castka",
+         "pravda",
+         "trava"
+      ],
+      "name" : "vystava",
+      "position" : [
+         "49.94218",
+         "13.40685"
+      ]
+   },
+   "obsah" : {
+      "edges" : [
+         "ucta",
+         "pruh",
+         "*pruh",
+         "plyn"
+      ],
+      "name" : "mzda",
+      "position" : [
+         "49.94111",
+         "13.34115"
+      ]
+   },
+   "obvod" : {
+      "edges" : [
+         "plyn",
+         "*promena",
+         "novina",
+         "obsah"
+      ],
+      "name" : "kultura",
+      "position" : [
+         "49.94557",
+         "13.37133"
+      ]
+   },
+   "plyn" : {
+      "edges" : [
+         "*pripad"
+      ],
+      "name" : "tramvaj",
+      "position" : [
+         "49.95281",
+         "13.38891"
+      ],
+      "type" : "MEGATASK"
+   },
+   "pobocka" : {
+      "edges" : [
+         "*legrace",
+         "plyn",
+         "cibule",
+         "novina"
+      ],
+      "name" : "vlas",
+      "position" : [
+         "49.94728",
+         "13.36327"
+      ]
+   },
+   "posadka" : {
+      "edges" : [
+         "dopad",
+         "*plyn",
+         "obloha",
+         "zvyk"
+      ],
+      "name" : "balik",
+      "position" : [
+         "49.94452",
+         "13.35700"
+      ]
+   },
+   "pravda" : {
+      "edges" : [
+         "novina",
+         "obvod",
+         "*vzor",
+         "ucta"
+      ],
+      "name" : "herecka",
+      "position" : [
+         "49.93911",
+         "13.38197"
+      ]
+   },
+   "princip" : {
+      "edges" : [
+         "stab",
+         "plyn",
+         "*trava",
+         "promena"
+      ],
+      "name" : "mince",
+      "position" : [
+         "49.93289",
+         "13.38540"
+      ]
+   },
+   "pripad" : {
+      "edges" : [
+         "*mira"
+      ],
+      "name" : "stava",
+      "position" : [
+         "49.93758",
+         "13.38630"
+      ],
+      "type" : "MEGATASK"
+   },
+   "program" : {
+      "edges" : [
+         "ucta",
+         "trava",
+         "vyskyt",
+         "*legrace"
+      ],
+      "name" : "predmet",
+      "position" : [
+         "49.93253",
+         "13.38899"
+      ]
+   },
+   "promena" : {
+      "edges" : [
+         "novina",
+         "*cibule",
+         "pobocka",
+         "efekt"
+      ],
+      "name" : "smer",
+      "position" : [
+         "49.95921",
+         "13.37812"
+      ]
+   },
+   "pruh" : {
+      "edges" : [
+         "novina",
+         "*program",
+         "castka",
+         "obsah"
+      ],
+      "name" : "zazrak",
+      "position" : [
+         "49.93457",
+         "13.38959"
+      ]
+   },
+   "reakce" : {
+      "edges" : [
+         "dopad",
+         "*sektor",
+         "hrozba",
+         "posadka"
+      ],
+      "name" : "hora",
+      "position" : [
+         "49.95588",
+         "13.39444"
+      ]
+   },
+   "reforma" : {
+      "edges" : [
+         "*kaple"
+      ],
+      "name" : "jidelna",
+      "position" : [
+         "49.92239",
+         "13.34781"
+      ],
+      "type" : "MEGATASK"
+   },
+   "rozmer" : {
+      "edges" : [
+         "*socha"
+      ],
+      "name" : "klid",
+      "position" : [
+         "49.95725",
+         "13.42039"
+      ],
+      "type" : "MEGATASK"
+   },
+   "salon" : {
+      "edges" : [
+         "*dvojice"
+      ],
+      "name" : "motiv",
+      "position" : [
+         "49.92920",
+         "13.33360"
+      ],
+      "type" : "MEGATASK"
+   },
+   "sektor" : {
+      "edges" : [
+         "*milion",
+         "ucta",
+         "trava",
+         "program"
+      ],
+      "name" : "redakce",
+      "position" : [
+         "49.95747",
+         "13.40925"
+      ]
+   },
+   "smlouva" : {
+      "edges" : [
+         "*promena",
+         "efekt",
+         "milion",
+         "milion"
+      ],
+      "name" : "tkan",
+      "position" : [
+         "49.93135",
+         "13.36881"
+      ]
+   },
+   "socha" : {
+      "edges" : [
+         "*choroba"
+      ],
+      "name" : "ocel",
+      "position" : [
+         "49.94690",
+         "13.35426"
+      ],
+      "type" : "MEGATASK"
+   },
+   "stab" : {
+      "edges" : [
+         "plyn",
+         "vzor",
+         "bar",
+         "*hrozba"
+      ],
+      "name" : "krabice",
+      "position" : [
+         "49.93773",
+         "13.35258"
+      ]
+   },
+   "sval" : {
+      "edges" : [
+         "*smlouva"
+      ],
+      "name" : "bomba",
+      "position" : [
+         "49.95609",
+         "13.39158"
+      ],
+      "type" : "MEGATASK"
+   },
+   "trava" : {
+      "edges" : [
+         "*obvod",
+         "*efekt",
+         "*novina",
+         "*ulice"
+      ],
+      "name" : "pusa",
+      "position" : [
+         "49.93686",
+         "13.37987"
+      ]
+   },
+   "trenink" : {
+      "edges" : [
+         "*reforma"
+      ],
+      "name" : "dolar",
+      "position" : [
+         "49.94345",
+         "13.37316"
+      ],
+      "type" : "MEGATASK"
+   },
+   "ucta" : {
+      "edges" : [
+         "novina",
+         "bar",
+         "trava",
+         "*pruh"
+      ],
+      "name" : "usmev",
+      "position" : [
+         "49.95165",
+         "13.39393"
+      ]
+   },
+   "ulice" : {
+      "edges" : [
+         "trava",
+         "pruh",
+         "*pravda",
+         "efekt"
+      ],
+      "name" : "salat",
+      "position" : [
+         "49.94010",
+         "13.38377"
+      ]
+   },
+   "ustav" : {
+      "edges" : [
+         "*sval"
+      ],
+      "name" : "vyhoda",
+      "position" : [
+         "49.93323",
+         "13.36366"
+      ],
+      "type" : "MEGATASK"
+   },
+   "vyskyt" : {
+      "edges" : [
+         "*trenink"
+      ],
+      "name" : "trouba",
+      "position" : [
+         "49.94128",
+         "13.34932"
+      ],
+      "type" : "MEGATASK"
+   },
+   "vzor" : {
+      "edges" : [
+         "*rozmer"
+      ],
+      "name" : "system",
+      "position" : [
+         "49.93100",
+         "13.37977"
+      ],
+      "type" : "MEGATASK"
+   },
+   "ztrata" : {
+      "edges" : [
+         "milion",
+         "ustav",
+         "*pravda",
+         "napad"
+      ],
+      "name" : "sluzba",
+      "position" : [
+         "49.92787",
+         "13.39354"
+      ]
+   },
+   "zvyk" : {
+      "edges" : [
+         "sektor",
+         "*ulice",
+         "hrozba",
+         "pravda"
+      ],
+      "name" : "krize",
+      "position" : [
+         "49.95668",
+         "13.36977"
+      ]
+   }
 }
+
+
 }
