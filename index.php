@@ -1,5 +1,13 @@
 <?php
-	session_start();
+session_start();
+
+if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
+|| $_SERVER['PHP_AUTH_USER'] != "ksp" || $_SERVER['PHP_AUTH_PW'] != "aloha") {
+	header('WWW-Authenticate: Basic realm="Přístup jen pro centrálu"');
+	header('HTTP/1.0 401 Unauthorized');
+	echo 'Přístupné jen pro centrálu.';
+	exit;
+}
 
 	include("config.php");
 
@@ -9,19 +17,16 @@
 			$_SESSION["msgtype"]='danger';
 			$_SESSION["msg"]='Tento kód byl již zadán v '.strftime("%H:%M:%S", $row['time']);
 		} else {
-			foreach ($sites as $site) {
-				if ($site["code"] == $_POST["code"]) {
-					dibi::query("INSERT IGNORE INTO [entered_codes]", [
-						"code" => $_POST["code"]
-					]);
-					$_SESSION["msgtype"]='success';
-					$_SESSION["msg"]='Kód přijat';
-					header('Location: ./');
-					exit;
-				}
+			if (array_key_exists($_POST["code"], $sites)) {
+				dibi::query("INSERT IGNORE INTO [entered_codes]", [
+					"code" => $_POST["code"]
+				]);
+				$_SESSION["msgtype"]='success';
+				$_SESSION["msg"]='Kód přijat';
+			} else {
+				$_SESSION["msgtype"]='danger';
+				$_SESSION["msg"]='Neznámý kód';
 			}
-			$_SESSION["msgtype"]='danger';
-			$_SESSION["msg"]='Neznámý kód';
 		}
 		header('Location: ./');
 		exit;
@@ -55,6 +60,7 @@
 	<link rel="stylesheet" href="css/Control.FullScreen.css" />
 	<script src="js/Control.FullScreen.js"></script>
 	<script src="js/leaflet.polylineDecorator.js"></script>
+	<script type="text/javascript" src="js/MovingMarker.js"></script>
 
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -107,6 +113,12 @@
 			iconSize:[20,10],
 			color:'#444444',
 			heartbeat: 2
+		});
+
+		var entityIcon = L.ExtraMarkers.icon({
+			icon: 'fa-eye',
+			shape: 'circle',
+			prefix: 'fa'
 		});
 
 		var openedMarker = "";

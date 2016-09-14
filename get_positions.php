@@ -5,11 +5,11 @@ $reload = 15; // seconds
 $positions = [];
 
 $logs = dibi::query("SELECT A.* FROM (
-	SELECT code, MAX(time) AS latest FROM [gps_logs] GROUP BY code
-) AS B INNER JOIN [gps_logs] AS A ON A.code=B.code AND A.time=B.latest");
+	SELECT team, MAX(time) AS latest FROM [gps_logs] GROUP BY team
+) AS B INNER JOIN [gps_logs] AS A ON A.team=B.team AND A.time=B.latest");
 
 foreach ($logs as $log) {
-	$positions[$log["code"]] = [$log["lat"], $log["lon"]];
+	$positions[$log["team"]] = [$log["lat"], $log["lon"]];
 }
 
 echo "function addPositions() {
