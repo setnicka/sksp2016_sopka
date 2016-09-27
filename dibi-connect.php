@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set("Europe/Prague");
 
-require_once ('libs/dibi.min.php');
+require_once ('libs/dibi.phar');
 
-$whitelist = array('localhost', '127.0.0.1');
+$whitelist = array('localhost', '127.0.0.1', '192.168.45.2');
 
 if(in_array($_SERVER['HTTP_HOST'], $whitelist)){
 	dibi::connect(array(

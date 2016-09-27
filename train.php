@@ -32,8 +32,31 @@ function DrawSwitchArrows() {
 	while ($row = $data->fetch()) $switches[$row["position"]] = $row["switch"];
 
 	// Draw arrows
-	foreach ($switches as $switch) {
-		// TODO
+	echo "arrowSymbol = L.Symbol.arrowHead({pixelSize: 8, polygon: false, pathOptions: {stroke: true, className: 'directionArrow'}});\n";
+	foreach ($switches as $code => $switch) {
+		if (!array_key_exists($code, $sites)) continue;
+		$site = $sites[$code];
+		$edges = array();
+		if (($switch >= 0) && ($switch < count($site["edges"]))) {
+			$edge = $site["edges"][$switch];
+			if ($edge[0] == '*') $edge = substr($edge, 1);
+			$edges = [$edge];
+		} else {
+			foreach ($site["edges"] as $edge) {
+				if ($edge[0] == '*') array_push($edges, substr($edge, 1));
+			}
+		}
+
+		foreach ($edges as $edge) {
+			$startPos = $site["position"];
+			$targetPos = [
+				$site["position"][0] + ($sites[$edge]["position"][0] - $site["position"][0])*0.1,
+				$site["position"][1] + ($sites[$edge]["position"][1] - $site["position"][1])*0.1
+			];
+			echo "arrowHeadEntity = L.polylineDecorator(
+				L.polyline(".json_encode([$startPos, $targetPos]).", {className: 'directionArrow'}).addTo(markersLayer)
+			).addTo(markersLayer).setPatterns([{repeat: 10, symbol: arrowSymbol}]);\n";
+		}
 	}
 }
 
@@ -66,7 +89,7 @@ function CheckTrain() {
 		list ($next, $oldSwitch) = NextStop($current["position"]);
 		if ($oldSwitch != -1) {
 			dibi::query('INSERT INTO [switches]',[
-				"position" => $next,
+				"position" => $current["position"],
 				"switch" => -1
 			]);
 		}
@@ -103,7 +126,6 @@ function CheckTrain() {
 		arrowHeadEntity.setPatterns([{offset: (arrowOffsetEntity++ % 100), repeat: 100, symbol: arrowSymbol}])
 	}, 100);\n";
 	echo "L.Marker.movingMarker(".json_encode([$currentPos, $targetPos]).", [".($realDuration*1000)."], {autostart: true, icon: entityIcon}).addTo(markersLayer);\n\n";
-
 	$reload = min($reload, $targetTime);
 }
 

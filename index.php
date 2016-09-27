@@ -36,7 +36,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
 <html lang="cs">
 <head>
 	<meta charset="utf-8">
-	<title>Mapa</title>
+	<title>HawaiiMap</title>
 
 	<!-- jQuery -->
 	<script src="js/jquery.js"></script>
@@ -62,27 +62,38 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
 	<script src="js/leaflet.polylineDecorator.js"></script>
 	<script type="text/javascript" src="js/MovingMarker.js"></script>
 
+	<script src="js/gpx.js" type="text/javascript"></script>
+
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<h1 class="text-center">HawaiiMap</h1>
-
 <?php
+	if (isset($_GET['team'])) {
+		echo "Statistiky pro <b>tým ".$_GET['team']."</b>:<ul>
+			<li>Vzdálenost: <span id='stat_distance'></span>m
+			<li>Celkový čas: <span id='stat_total_time'></span> minut
+			<li>Průměrná rychlost: <span id='stat_speed'></span> km/h
+		</ul>\n";
+	} else {
+		echo "<h1 class='text-center'>HawaiiMap</h1>\n";
+	}
+
 	if (isset($_SESSION["msgtype"])) {
 		echo "<div class='alertbox'><div class='alert alert-".$_SESSION["msgtype"]." fade in'>
 		<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>".$_SESSION["msg"]."</strong>
 		</div></div>\n";
 		unset($_SESSION["msgtype"]);
 	}
-?>
 
-	<div id="communicator">
-		<h3>Odeslat kód</h3>
-		<form method="post">
-			<input size="14" type="text" name="code"><br>
-			<input type="submit" value="Odešli">
-		</form>
-	</div>
+
+//	<div id="communicator">
+//		<h3>Odeslat kód</h3>
+//		<form method="post">
+//			<input size="14" type="text" name="code"><br>
+//			<input type="submit" value="Odešli">
+//		</form>
+//	</div>
+?>
 	<div id="mapa" style="height: 600px;"></div>
 
 	<script  type="text/javascript">
@@ -138,7 +149,18 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
 		}
 		reloadMarkers();
 
-		positions = L.layerGroup();
+<?php
+if (isset($_GET['team'])) {
+	$gpx = getGPX($_GET['team']);
+	echo "gpx=".json_encode($gpx)."\n";
+
+	echo "new L.GPX(gpx, {async: true}).on('loaded', function(e) {
+		jQuery('#stat_distance').html(Math.round(e.target.get_distance()));
+		jQuery('#stat_total_time').html(Math.round(e.target.get_total_time()/1000/60));
+		jQuery('#stat_speed').html(Math.round(e.target.get_total_speed()));
+	}).addTo(map);";
+} else {
+echo "		positions = L.layerGroup();
 		function reloadPositions() {
 			$.ajax({
 				url: 'get_positions.php',
@@ -149,7 +171,11 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
 				}
 			});
 		}
-		reloadPositions();
+		reloadPositions();\n";
+}
+?>
+
+
 	</script>
 </body>
 </html>

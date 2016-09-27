@@ -1,6 +1,9 @@
 <?php
 include("dibi-connect.php");
 
+//define('ORG_VERSION', true);
+define('SHOW_POSTGAME', true);
+
 $map_config = [
 	"center" => [49.9395375, 13.3838904],
 	"zoom" => 14,
@@ -39,4 +42,22 @@ foreach($sites as $code => $site) {
 		array_push($sites[$edge]["edges_from"], $code);
 	}
 }
+
+function getGPX($team) {
+	$gpx = '<?xml version="1.0" encoding="UTF-8"?>
+	<gpx version="1.0">
+		<name>SKSP2016 - velká noční hra</name>
+		<trk><name>Trasa týmu '.$team.'</name><number>1</number><trkseg>'."\n";
+
+		$data = dibi::query("SELECT *, UNIX_TIMESTAMP(time) AS timestamp FROM [gps_logs] WHERE team=%s",$team,'ORDER BY time');
+		while ($row = $data->fetch()) {
+			$gpx .= '<trkpt lat="'.$row["lat"].'" lon="'.$row["lon"].'"><ele>'.$row["id"].'</ele><time>'.date(DATE_ATOM, $row['timestamp'])."</time></trkpt>\n";
+		}
+
+	$gpx .= "	</trkseg></trk>
+	</gpx>\n";
+
+	return $gpx;
+}
+
 ?>

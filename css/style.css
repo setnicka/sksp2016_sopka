@@ -32,10 +32,14 @@
 /*paths and arrows*/
 .edge {
 	stroke: gray;
-	opacity: 0.45;
+	opacity: 0.35;
 }
 .entityPath {
 	stroke: #7B1B1B;
+}
+
+.directionArrow {
+	stroke: black;
 }
 
 /*By default hidden*/

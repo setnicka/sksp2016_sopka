@@ -34,6 +34,7 @@ foreach ($showPositions as $type => $elements) {
 				$icon = "iconTeam";
 				break;
 			}
+			$title = $title." - N".$positions[$elem][0].', E'.$positions[$elem][1];
 			echo "L.marker(".json_encode($positions[$elem]).",{icon: ".$icon.", title: '".$title."'}).addTo(positions);\n";
 		}
 	}
@@ -44,7 +45,4 @@ setTimeout(function() {
 	reloadPositions();
 }, ".($reload*1000).");
 }\n";
-
-//L.marker([49.9395375,13.3638904],{icon: iconTarget}).addTo(map);
-//L.marker([49.9395375,13.3738904],{icon: iconMonster}).addTo(map);
 ?>

@@ -5,10 +5,10 @@ include("dibi-connect.php");
 
 if (isset($_GET["lat"]) && preg_match("/^-?\d+\.\d+$/", $_GET["lat"])
  && isset($_GET["lon"]) && preg_match("/^-?\d+\.\d+$/", $_GET["lon"])
- && isset($_GET["code"]) && preg_match("/^\w+$/", $_GET["code"])
+ && isset($_GET["team"]) && preg_match("/^\w+$/", $_GET["team"])
 ) {
 	$args = [
-		"code" => strtolower($_GET["code"]),
+		"team" => strtolower($_GET["team"]),
 		"lat" => $_GET["lat"],
 		"lon" => $_GET["lon"]
 	];

@@ -5,19 +5,21 @@ include("train.php");
 
 function IsVisible(&$site) {
 	global $enteredCodes, $game_start_timestamp;
-	return true;
+
+	if (defined("SHOW_POSTGAME")) return true;
 
 	$visible_from = $game_start_timestamp;
 	if (array_key_exists("visible_from_minute", $site)) {
 		$site["__visible_from_timestamp"] = $game_start_timestamp + 60*$site["visible_from_minute"];
+		if (defined('ORG_VERSION')) return true;
 		return ($site["__visible_from_timestamp"] <= time());
-	} else if (array_key_exists("visible_after", $site)) {
-		foreach ($site["visible_after"] as $code) {
-			if (!array_key_exists($code, $enteredCodes)) return false;
-			$visible_from = max($visible_from, $enteredCodes[$code]["time"]);
-		}
-		$site["__visible_from_timestamp"] = $visible_from;
-		return true;
+//	} else if (array_key_exists("visible_after", $site)) {
+//		foreach ($site["visible_after"] as $code) {
+//			if (!array_key_exists($code, $enteredCodes)) return false;
+//			$visible_from = max($visible_from, $enteredCodes[$code]["time"]);
+//		}
+//		$site["__visible_from_timestamp"] = $visible_from;
+//		return true;
 	} else {
 		// Default: If there is edge from some visited (completed) vertex
 		$reachable = false;
@@ -28,8 +30,10 @@ function IsVisible(&$site) {
 				$site["__visible_from_timestamp"] = $visible_from;
 			}
 		}
+		if (defined('ORG_VERSION')) return true;
 		return $reachable;
 	}
+	if (defined('ORG_VERSION')) return true;
 }
 
 function drawArrowsFrom($site, $codeIndex) {
@@ -62,9 +66,9 @@ $typeIconsDefault = [
 
 $typeIcons = [
 	"BASIC" => array_merge($typeIconsDefault, [
-		"typeName" => "Otázka",
+		"typeName" => "Stanoviště",
 		"icon" => "fa-info-circle",
-		"markerColor" => "blue"
+		"markerColor" => "orange"
 	]),
 	"BONUS" => array_merge($typeIconsDefault, [
 		"typeName" => "Žolík",
@@ -82,34 +86,46 @@ $typeIcons = [
 		"markerColor" => "blue"
 	]),
 	"MEGATASK" => array_merge($typeIconsDefault, [
-		"typeName" => "Megaúkol",
+		"typeName" => "Úkol",
 		"icon" => "fa-arrows-alt",
-		"markerColor" => "blue"
+		"markerColor" => "orange"
+	]),
+	"NOT_READY" => array_merge($typeIconsDefault, [
+		'typeName' => "Zatím neaktivní",
+		"icon" => "fa-question-circle-o",
+		"markerColor" => "black"
 	])
 ];
 
 echo "function addMarkers() {
 markersLayer = L.layerGroup();\n";
 
-// Default reload time: 1 minute
-$reload = time() + 60;
+// Default reload time: 30 seconds
+$reload = time() + 30;
 $codeIndex = 0;
+
 foreach($sites as $code => $site) {
 	// Is visible?
 	if (IsVisible($site)) {
 		if (!isset($site["type"])) $site["type"] = "BASIC";
 		$params = $typeIcons[$site["type"]];
 		$title = $params["typeName"].": ".$site["name"];
-		$info = "<h4>".$site["name"]."</h4><b>Typ stanoviště:</b>".$params["typeName"];
+		$info = "<h4>".$site["name"]."</h4><b>Typ stanoviště:</b>".$params["typeName"]."<br>\n<b>Pozice:</b> N".$site["position"][0].", E".$site["position"][1]."\n";
 		if (isset($site["info"])) $info .= "<br><br>".$site["info"];
 		$script = "map.on('popupclose', function() { $('.edgeHighlighted:visible').hide(); openedMarker=''; });\n";
 		$opacity = 1.0;
 
 		// Determine state
-		if (array_key_exists($code, $enteredCodes)) {
+		if ((array_key_exists($code, $enteredCodes)) or defined("SHOW_POSTGAME")) {
 			$params["extraClasses"] = "completed";
 			$params["markerColor"] = "green";
-			$info .= "<br><br><b>Sebráno v:</b> ".strftime("%H:%M:%S", $enteredCodes[$code]["time"]);
+			if (defined("SHOW_POSTGAME")) {
+				$ii = $site['index'];
+				$info .= "<br><br><b>Zobrazit stanoviště:</b>
+				<a href='sopka/stanoviste/".($ii < 10 ? "0$ii" : $ii).".pdf'>[PDF]</a>\n";
+			} else {
+				$info .= "<br><br><b>Sebráno v:</b> ".strftime("%H:%M:%S", $enteredCodes[$code]["time"]);
+			}
 			$opacity = 1.0;
 			if (array_key_exists("secret", $site)) {
 				$info .= "<br><br><b>Tajné:</b> ".$site["secret"];
@@ -131,12 +147,12 @@ foreach($sites as $code => $site) {
 
 		echo "info = ".json_encode($info).";\n";
 		echo "marker[".$codeIndex."] = L.marker(".json_encode($site["position"]).",{
-			title: '".$title."', opacity: ".$opacity.", icon: L.ExtraMarkers.icon(\n".json_encode($params)."\n)
+			title: '".$title."', opacity: ".$opacity.", icon: L.ExtraMarkers.icon(\n\t\t\t".json_encode($params)."\n)
 		}).addTo(markersLayer);\n";
 		echo "marker[".$codeIndex."].bindPopup(info);\n";
 		echo "marker[".$codeIndex."].on('click', function() { openedMarker = ".$codeIndex."; $('.edgeFrom".$codeIndex."').show(); });";
 
-		if (array_key_exists($code, $enteredCodes))
+		if (defined('ORG_VERSION') || array_key_exists($code, $enteredCodes))
 			drawArrowsFrom($site, $codeIndex);
 
 		echo "\n\n";
@@ -146,6 +162,7 @@ foreach($sites as $code => $site) {
 	$codeIndex++;
 }
 CheckTrain();
+if (defined('ORG_VERSION')) DrawSwitchArrows();
 
 echo "setTimeout(function() {
 	if (openedMarker != '') { marker[openedMarker].fireEvent('click'); }
