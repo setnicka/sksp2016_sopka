@@ -39,21 +39,14 @@ function IsVisible(&$site) {
 function drawArrowsFrom($site, $codeIndex) {
 	global $sites;
 
-	foreach ($site["edges"] as $i => $edge) {
-		if ($edge[0] == '*') $edge = substr($edge, 1);
-		$arrowIndex = $codeIndex."i".$i;
-		foreach (["edge", "edgeHighlighted edgeFrom".$codeIndex] as $edgeClass) {
-			echo "arrowSymbol = L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true, className: '".$edgeClass." edgeArrow'}});\n";
-			echo "arrowHead['".$arrowIndex."'] = L.polylineDecorator(
-				L.polyline(".json_encode([$site["position"], $sites[$edge]["position"]]).", {className: '".$edgeClass." edgeFrom".$codeIndex."'}).addTo(markersLayer)
-			).addTo(markersLayer);\n";
-			echo "arrowHead['".$arrowIndex."'].setPatterns([{offset: '50%', symbol: arrowSymbol}]);\n";
+	foreach (["edge", "edgeHighlighted edgeFrom".$codeIndex] as $edgeClass) {
+		echo "arrowSymbol = L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true, className: '".$edgeClass." edgeArrow'}})\n";
+		foreach ($site["edges"] as $i => $edge) {
+			if ($edge[0] == '*') $edge = substr($edge, 1);
+			$arrowIndex = $codeIndex."i".$i;
 
-			// Animation:
-			//echo "arrowOffset['".$arrowIndex."'] = 0;
-			//window.setInterval(function() {
-			//	arrowHead['".$arrowIndex."'].setPatterns([{offset: (arrowOffset['".$arrowIndex."']++ % 100)+'%', repeat: 0, symbol: arrowSymbol}])
-			//}, 100);";
+			echo "arrowHead['".$arrowIndex."'] = L.polylineDecorator(L.polyline(".json_encode([$site["position"], $sites[$edge]["position"]]).", {className: '".$edgeClass."'}).addTo(markersLayer)).addTo(markersLayer);\n";
+			echo "arrowHead['".$arrowIndex."'].setPatterns([{offset: '50%', symbol: arrowSymbol}]);\n";
 		}
 	}
 }
@@ -110,9 +103,9 @@ foreach($sites as $code => $site) {
 		if (!isset($site["type"])) $site["type"] = "BASIC";
 		$params = $typeIcons[$site["type"]];
 		$title = $params["typeName"].": ".$site["name"];
-		$info = "<h4>".$site["name"]."</h4><b>Typ stanoviště:</b>".$params["typeName"]."<br>\n<b>Pozice:</b> N".$site["position"][0].", E".$site["position"][1]."\n";
+		$info = "<h4>".$site["name"]."</h4><b>Typ stanoviště:</b> ".$params["typeName"]."<br>\n<b>Pozice:</b> N".$site["position"][0].", E".$site["position"][1]."\n";
 		if (isset($site["info"])) $info .= "<br><br>".$site["info"];
-		$script = "map.on('popupclose', function() { $('.edgeHighlighted:visible').hide(); openedMarker=''; });\n";
+		$script = "";
 		$opacity = 1.0;
 
 		// Determine state
@@ -146,16 +139,14 @@ foreach($sites as $code => $site) {
 		}
 
 		echo "info = ".json_encode($info).";\n";
-		echo "marker[".$codeIndex."] = L.marker(".json_encode($site["position"]).",{
-			title: '".$title."', opacity: ".$opacity.", icon: L.ExtraMarkers.icon(\n\t\t\t".json_encode($params)."\n)
-		}).addTo(markersLayer);\n";
-		echo "marker[".$codeIndex."].bindPopup(info);\n";
-		echo "marker[".$codeIndex."].on('click', function() { openedMarker = ".$codeIndex."; $('.edgeFrom".$codeIndex."').show(); });";
+		echo "marker[".$codeIndex."] = L.marker(".json_encode($site["position"]).",{title: '".$title."', opacity: ".$opacity.", icon: L.ExtraMarkers.icon(".json_encode($params).")});\n";
+		echo "marker[".$codeIndex."].addTo(markersLayer).bindPopup(info);\n";
+		echo "marker[".$codeIndex."].on('click', function() { openedMarker = ".$codeIndex."; $('.edgeFrom".$codeIndex."').show(); });\n";
 
 		if (defined('ORG_VERSION') || array_key_exists($code, $enteredCodes))
 			drawArrowsFrom($site, $codeIndex);
 
-		echo "\n\n";
+		echo "\n";
 		echo $script;
 
 	}
@@ -164,7 +155,9 @@ foreach($sites as $code => $site) {
 CheckTrain();
 if (defined('ORG_VERSION')) DrawSwitchArrows();
 
-echo "setTimeout(function() {
+echo "map.on('popupclose', function() { $('.edgeHighlighted:visible').hide(); openedMarker=''; });
+
+setTimeout(function() {
 	if (openedMarker != '') { marker[openedMarker].fireEvent('click'); }
 }, 500);\n";
 

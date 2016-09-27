@@ -11,26 +11,14 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
 
 	include("config.php");
 
-	if (isset($_POST["code"]) && preg_match("/^\w+$/", $_POST["code"])) {
-		$row = dibi::fetch("SELECT code, UNIX_TIMESTAMP(time) AS time FROM [entered_codes] WHERE code=%s", $_POST["code"]);
-		if ($row != NULL) {
-			$_SESSION["msgtype"]='danger';
-			$_SESSION["msg"]='Tento kód byl již zadán v '.strftime("%H:%M:%S", $row['time']);
-		} else {
-			if (array_key_exists($_POST["code"], $sites)) {
-				dibi::query("INSERT IGNORE INTO [entered_codes]", [
-					"code" => $_POST["code"]
-				]);
-				$_SESSION["msgtype"]='success';
-				$_SESSION["msg"]='Kód přijat';
-			} else {
-				$_SESSION["msgtype"]='danger';
-				$_SESSION["msg"]='Neznámý kód';
-			}
-		}
-		header('Location: ./');
-		exit;
-	}
+if (isset($_GET['download_team']) && preg_match("/^\w+$/", $_REQUEST["download_team"])) {
+	header('Content-type: application/gpx+xml');
+	header("Content-Disposition: attachment; filename=tracking_".$_GET['download_team'].".gpx");
+
+	echo getGPX($_GET['download_team']);
+	exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">
