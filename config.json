@@ -8,619 +8,720 @@
 "train": {
 	"started": false,
 	"starFrom": "bar",
-	"hopTime": 15
+	"hopTime": 120
 },
 "sites":
 {
-   "bar" : {
+   "cas" : {
       "edges" : [
-         "*novinka"
+         "libra",
+         "*pravda",
+         "koberec",
+         "kvetina"
       ],
-      "name" : "vzduch",
+      "index" : "1",
+      "info" : "Lavička v čekárně",
+      "name" : "Železná dráha",
       "position" : [
-         "49.94994",
-         "13.33968"
-      ],
-      "type" : "MEGATASK"
-   },
-   "castka" : {
-      "edges" : [
-         "milion"
-      ],
-      "name" : "scena",
-      "position" : [
-         "49.93978",
-         "13.39150"
+         "49.94728",
+         "13.36327"
       ]
    },
-   "choroba" : {
+   "cestar" : {
       "edges" : [
-         "obvod",
-         "*castka",
-         "obsah",
-         "bar"
+         "*rust"
       ],
-      "name" : "zasada",
+      "index" : "12",
+      "info" : "",
+      "name" : "Černá jáma",
       "position" : [
-         "49.93677",
-         "13.39751"
+         "49.92443",
+         "13.34343"
       ],
-      "visible_from_minute": 0
-   },
-   "cibule" : {
-      "edges" : [
-         "*dopis"
-      ],
-      "name" : "volba",
-      "position" : [
-         "49.94666",
-         "13.41320"
-      ],
-      "type" : "MEGATASK"
-   },
-   "cit" : {
-      "edges" : [
-         "*kavarna"
-      ],
-      "name" : "kapsa",
-      "position" : [
-         "49.94263",
-         "13.37425"
-      ],
-      "type" : "MEGATASK"
+      "type" : "NOT_READY"
    },
    "dopad" : {
       "edges" : [
-         "*ustav",
-         "*pravda",
-         "novina",
-         "pobocka"
+         "*vyznamenani",
+         "podvod",
+         "odbor",
+         "strojovna"
       ],
-      "name" : "proces",
+      "index" : "34",
+      "info" : "Na velkém stromu za poštou uprostřed loučky",
+      "name" : "U poštmistra",
       "position" : [
-         "49.93933",
-         "13.37371"
+         "49.93289",
+         "13.38540"
       ]
    },
-   "dopis" : {
+   "foton" : {
       "edges" : [
-         "*salon"
+         "*vaha"
       ],
-      "name" : "verze",
+      "index" : "40",
+      "info" : "Pod mostem, na levé traverze vzhůru nohama",
+      "name" : "Mostek",
       "position" : [
-         "49.93199",
-         "13.39530"
+         "49.93911",
+         "13.38197"
       ],
       "type" : "MEGATASK"
    },
-   "dvojice" : {
+   "hausbot" : {
       "edges" : [
-         "pobocka",
-         "zvyk",
-         "*milion",
-         "novina"
+         "*sekyra"
       ],
-      "name" : "pricina",
-      "position" : [
-         "49.93803",
-         "13.37044"
-      ]
-   },
-   "efekt" : {
-      "edges" : [
-         "*cit"
-      ],
-      "name" : "sal",
-      "position" : [
-         "49.93061",
-         "13.33030"
-      ],
-      "type" : "MEGATASK"
-   },
-   "hrozba" : {
-      "edges" : [
-         "posadka",
-         "promena",
-         "plyn",
-         "*ucta"
-      ],
-      "name" : "lzicka",
-      "position" : [
-         "49.93158",
-         "13.35398"
-      ]
-   },
-   "kaple" : {
-      "edges" : [
-         "sektor",
-         "pobocka",
-         "napad",
-         "*obloha"
-      ],
-      "name" : "ustav",
-      "position" : [
-         "49.93188",
-         "13.40436"
-      ]
-   },
-   "kavarna" : {
-      "edges" : [
-         "*navrat"
-      ],
-      "name" : "ucel",
-      "position" : [
-         "49.95656",
-         "13.38202"
-      ],
-      "type" : "MEGATASK"
-   },
-   "legrace" : {
-      "edges" : [
-         "pruh",
-         "obsah",
-         "*posadka",
-         "novina"
-      ],
-      "name" : "zvyk",
-      "position" : [
-         "49.94524",
-         "13.37698"
-      ]
-   },
-   "milion" : {
-      "edges" : [
-         "*obvod",
-         "vzor",
-         "posadka",
-         "pravda"
-      ],
-      "name" : "humor",
-      "position" : [
-         "49.94748",
-         "13.39110"
-      ]
-   },
-   "mira" : {
-      "edges" : [
-         "*ztrata"
-      ],
-      "name" : "budova",
-      "position" : [
-         "49.93098",
-         "13.32542"
-      ],
-      "type" : "MEGATASK"
-   },
-   "napad" : {
-      "edges" : [
-         "bar",
-         "*stab",
-         "obsah",
-         "novina"
-      ],
-      "name" : "kalhoty",
-      "position" : [
-         "49.92727",
-         "13.33574"
-      ]
-   },
-   "navrat" : {
-      "edges" : [
-         "*trava",
-         "milion",
-         "*ustav",
-         "efekt"
-      ],
-      "name" : "slza",
-      "position" : [
-         "49.94968",
-         "13.33169"
-      ]
-   },
-   "norma" : {
-      "edges" : [
-         "*reakce"
-      ],
-      "name" : "komise",
-      "position" : [
-         "49.94737",
-         "13.33379"
-      ],
-      "type" : "MEGATASK"
-   },
-   "novina" : {
-      "edges" : [
-         "zvyk",
-         "bar",
-         "*princip",
-         "program"
-      ],
-      "name" : "kura",
-      "position" : [
-         "49.91987",
-         "13.35651"
-      ]
-   },
-   "novinka" : {
-      "edges" : [
-         "*norma"
-      ],
-      "name" : "vtip",
-      "position" : [
-         "49.93924",
-         "13.33198"
-      ],
-      "type" : "MEGATASK"
-   },
-   "obloha" : {
-      "edges" : [
-         "*ulice",
-         "castka",
-         "pravda",
-         "trava"
-      ],
-      "name" : "vystava",
-      "position" : [
-         "49.94218",
-         "13.40685"
-      ]
-   },
-   "obsah" : {
-      "edges" : [
-         "ucta",
-         "pruh",
-         "*pruh",
-         "plyn"
-      ],
-      "name" : "mzda",
-      "position" : [
-         "49.94111",
-         "13.34115"
-      ]
-   },
-   "obvod" : {
-      "edges" : [
-         "plyn",
-         "*promena",
-         "novina",
-         "obsah"
-      ],
-      "name" : "kultura",
-      "position" : [
-         "49.94557",
-         "13.37133"
-      ]
-   },
-   "plyn" : {
-      "edges" : [
-         "*pripad"
-      ],
-      "name" : "tramvaj",
+      "index" : "41",
+      "info" : "Sloup elektrického vedení",
+      "name" : "Horní modrá",
       "position" : [
          "49.95281",
          "13.38891"
       ],
       "type" : "MEGATASK"
    },
-   "pobocka" : {
+   "hromada" : {
       "edges" : [
-         "*legrace",
-         "plyn",
-         "cibule",
-         "novina"
+         "stanice",
+         "podvod",
+         "*zahrada",
+         "stanice"
       ],
-      "name" : "vlas",
+      "index" : "45",
+      "info" : "Odbočka, strom se značkou",
+      "name" : "Roudská mýť",
       "position" : [
-         "49.94728",
-         "13.36327"
+         "49.95697",
+         "13.41455"
       ]
    },
-   "posadka" : {
+   "hruza" : {
       "edges" : [
-         "dopad",
-         "*plyn",
-         "obloha",
-         "zvyk"
+         "hausbot",
+         "zapas",
+         "idea",
+         "*tramvaj"
       ],
-      "name" : "balik",
+      "index" : "10",
+      "info" : "Na nástěnce na levé straně knihovničky na návsi",
+      "name" : "Musaeum",
       "position" : [
-         "49.94452",
-         "13.35700"
+         "49.92920",
+         "13.33360"
       ]
    },
-   "pravda" : {
+   "idea" : {
       "edges" : [
-         "novina",
-         "obvod",
-         "*vzor",
-         "ucta"
+         "svah",
+         "klicka",
+         "*pramen",
+         "stanice"
       ],
-      "name" : "herecka",
+      "index" : "5",
+      "info" : "Oplocený stromeček na vršku kopce (vedle základního kamene ukradeného křížku)",
+      "name" : "Na kopečku",
       "position" : [
-         "49.93911",
-         "13.38197"
+         "49.94737",
+         "13.33379"
       ]
    },
-   "princip" : {
+   "klicka" : {
       "edges" : [
-         "stab",
-         "plyn",
-         "*trava",
-         "promena"
+         "*kraken"
       ],
-      "name" : "mince",
+      "index" : "26",
+      "info" : "Kovová koule u bazénu před objektem",
+      "name" : "Koule",
       "position" : [
-         "49.93289",
-         "13.38540"
-      ]
-   },
-   "pripad" : {
-      "edges" : [
-         "*mira"
-      ],
-      "name" : "stava",
-      "position" : [
-         "49.93758",
-         "13.38630"
+         "49.94346",
+         "13.37340"
       ],
       "type" : "MEGATASK"
    },
-   "program" : {
+   "koberec" : {
       "edges" : [
-         "ucta",
-         "trava",
-         "vyskyt",
-         "*legrace"
+         "*zapis",
+         "selmy",
+         "hruza",
+         "nalevka"
       ],
-      "name" : "predmet",
+      "index" : "46",
+      "info" : "Na sloupu vysokého napětí, 15m od cesty",
+      "name" : "Pod napětím",
       "position" : [
-         "49.93253",
-         "13.38899"
+         "49.93496",
+         "13.32868"
       ]
    },
-   "promena" : {
+   "kozivyhlidka" : {
       "edges" : [
-         "novina",
-         "*cibule",
-         "pobocka",
-         "efekt"
+         "*panama"
       ],
-      "name" : "smer",
+      "index" : "27",
+      "info" : "Odbočka turistické, strom se značkou",
+      "name" : "Dolní modrá",
+      "position" : [
+         "49.94524",
+         "13.37698"
+      ],
+      "type" : "MEGATASK"
+   },
+   "kraken" : {
+      "edges" : [
+         "*foton"
+      ],
+      "index" : "17",
+      "info" : "Na stromě č. 29 se zelenou značkou",
+      "name" : "Letiště",
+      "position" : [
+         "49.92876",
+         "13.39314"
+      ],
+      "type" : "MEGATASK"
+   },
+   "kvetina" : {
+      "edges" : [
+         "*svah",
+         "*linie",
+         "*dopad",
+         "*libra"
+      ],
+      "index" : "4",
+      "info" : "Na rohu, na plotě, nahoře",
+      "name" : "Centrála",
+      "position" : [
+         "49.94305",
+         "13.37361"
+      ]
+   },
+   "libra" : {
+      "edges" : [
+         "hruza",
+         "maska",
+         "dopad",
+         "*svah"
+      ],
+      "index" : "21",
+      "info" : "Strom vlevo od křížku",
+      "name" : "Hrašťský křížek",
+      "position" : [
+         "49.95656",
+         "13.38202"
+      ]
+   },
+   "linie" : {
+      "edges" : [
+         "pricina",
+         "svah",
+         "kvetina",
+         "*nalevka"
+      ],
+      "index" : "16",
+      "info" : "na rozcestí se zelenou",
+      "name" : "U mlejna",
+      "position" : [
+         "49.93323",
+         "13.36366"
+      ]
+   },
+   "lokomotiva" : {
+      "edges" : [
+         "*pruzkum"
+      ],
+      "index" : "14",
+      "info" : "",
+      "name" : "Habrový dolík",
+      "position" : [
+         "49.91987",
+         "13.35651"
+      ],
+      "type" : "NOT_READY"
+   },
+   "maska" : {
+      "edges" : [
+         "vyznamenani",
+         "hausbot",
+         "*libra",
+         "linie"
+      ],
+      "index" : "48",
+      "info" : "Tlustší strom se dvěma bílými pruhy",
+      "name" : "Pěticestí",
+      "position" : [
+         "49.94131",
+         "13.34906"
+      ]
+   },
+   "nalevka" : {
+      "edges" : [
+         "*spagetka"
+      ],
+      "index" : "24",
+      "info" : "Na stromě vedle křížku",
+      "name" : "Smírčí kříž",
+      "position" : [
+         "49.95165",
+         "13.39393"
+      ],
+      "type" : "MEGATASK"
+   },
+   "odbor" : {
+      "edges" : [
+         "idea",
+         "*koberec",
+         "hruza",
+         "vyznamenani"
+      ],
+      "index" : "38",
+      "info" : "Křížek na rozcestí",
+      "name" : "K Sokolce",
+      "position" : [
+         "49.94666",
+         "13.41320"
+      ]
+   },
+   "palice" : {
+      "edges" : [
+         "*lokomotiva"
+      ],
+      "index" : "9",
+      "info" : "U rozcestníku",
+      "name" : "Lomanské jezero",
+      "position" : [
+         "49.92733",
+         "13.33649"
+      ],
+      "type" : "MEGATASK"
+   },
+   "panama" : {
+      "edges" : [
+         "*hromada"
+      ],
+      "index" : "3",
+      "info" : "Strom se zelenou turistickou značkou naproti smrčkům",
+      "name" : "Na trianglu",
+      "position" : [
+         "49.94705",
+         "13.35458"
+      ],
+      "type" : "MEGATASK"
+   },
+   "pelikan" : {
+      "edges" : [
+         "*tlapicka"
+      ],
+      "index" : "28",
+      "info" : "Na stromě",
+      "name" : "Klášterec",
+      "position" : [
+         "49.93447",
+         "13.38960"
+      ],
+      "type" : "MEGATASK"
+   },
+   "pistalky" : {
+      "edges" : [
+         "*ucel"
+      ],
+      "index" : "11",
+      "info" : "za památným dubem na kameni",
+      "name" : "Dubisko",
+      "position" : [
+         "49.93061",
+         "13.33030"
+      ],
+      "type" : "MEGATASK"
+   },
+   "pobocka" : {
+      "edges" : [
+         "polygon",
+         "*pricina",
+         "hausbot",
+         "kvetina"
+      ],
+      "index" : "19",
+      "info" : "Vlek na konci cesty, zadní strana",
+      "name" : "Horní Hradiště",
+      "position" : [
+         "49.95668",
+         "13.36977"
+      ]
+   },
+   "podlaha" : {
+      "edges" : [
+         "*linie",
+         "pramen",
+         "*nalevka",
+         "klicka"
+      ],
+      "index" : "20",
+      "info" : "Hromada dříví, zprava",
+      "name" : "Na konci Hradiště",
       "position" : [
          "49.95921",
          "13.37812"
       ]
    },
-   "pruh" : {
+   "podvod" : {
       "edges" : [
-         "novina",
-         "*program",
-         "castka",
-         "obsah"
+         "kvetina",
+         "*tramvaj",
+         "libra",
+         "zapas"
       ],
-      "name" : "zazrak",
+      "index" : "43",
+      "info" : "Pravý pilíř",
+      "name" : "Brod",
       "position" : [
-         "49.93457",
-         "13.38959"
+         "49.94294",
+         "13.37418"
       ]
    },
-   "reakce" : {
+   "polygon" : {
       "edges" : [
-         "dopad",
-         "*sektor",
-         "hrozba",
-         "posadka"
+         "*kozivyhlidka"
       ],
-      "name" : "hora",
-      "position" : [
-         "49.95588",
-         "13.39444"
-      ]
-   },
-   "reforma" : {
-      "edges" : [
-         "*kaple"
-      ],
-      "name" : "jidelna",
-      "position" : [
-         "49.92239",
-         "13.34781"
-      ],
-      "type" : "MEGATASK"
-   },
-   "rozmer" : {
-      "edges" : [
-         "*socha"
-      ],
-      "name" : "klid",
-      "position" : [
-         "49.95725",
-         "13.42039"
-      ],
-      "type" : "MEGATASK"
-   },
-   "salon" : {
-      "edges" : [
-         "*dvojice"
-      ],
-      "name" : "motiv",
-      "position" : [
-         "49.92920",
-         "13.33360"
-      ],
-      "type" : "MEGATASK"
-   },
-   "sektor" : {
-      "edges" : [
-         "*milion",
-         "ucta",
-         "trava",
-         "program"
-      ],
-      "name" : "redakce",
-      "position" : [
-         "49.95747",
-         "13.40925"
-      ]
-   },
-   "smlouva" : {
-      "edges" : [
-         "*promena",
-         "efekt",
-         "milion",
-         "milion"
-      ],
-      "name" : "tkan",
+      "index" : "15",
+      "info" : "Vedle plotu",
+      "name" : "Na Kole",
       "position" : [
          "49.93135",
          "13.36881"
-      ]
-   },
-   "socha" : {
-      "edges" : [
-         "*choroba"
-      ],
-      "name" : "ocel",
-      "position" : [
-         "49.94690",
-         "13.35426"
       ],
       "type" : "MEGATASK"
    },
-   "stab" : {
+   "pramen" : {
       "edges" : [
-         "plyn",
-         "vzor",
-         "bar",
-         "*hrozba"
+         "pricina",
+         "*dopad",
+         "zapas",
+         "podlaha"
       ],
-      "name" : "krabice",
+      "index" : "35",
+      "info" : "Na sloupu zezadu",
+      "name" : "Na výsluní",
+      "position" : [
+         "49.93962",
+         "13.39267"
+      ]
+   },
+   "pravda" : {
+      "edges" : [
+         "hausbot",
+         "odbor",
+         "*podlaha",
+         "nalevka"
+      ],
+      "index" : "36",
+      "info" : "Zezadu stromu s červenou značkou",
+      "name" : "Stará cesta",
+      "position" : [
+         "49.93662",
+         "13.39755"
+      ]
+   },
+   "pricina" : {
+      "edges" : [
+         "nalevka",
+         "*dopad",
+         "zapis",
+         "maska"
+      ],
+      "index" : "39",
+      "info" : "Budka s rozborem",
+      "name" : "Studánka",
+      "position" : [
+         "49.93933",
+         "13.37371"
+      ]
+   },
+   "prumer" : {
+      "edges" : [
+         "pravda",
+         "klicka",
+         "*zapis",
+         "odbor"
+      ],
+      "index" : "44",
+      "info" : "Plot u hráze",
+      "name" : "U splavu",
+      "position" : [
+         "49.94557",
+         "13.37133"
+      ]
+   },
+   "pruzkum" : {
+      "edges" : [
+         "pobocka",
+         "hruza",
+         "koberec",
+         "*cas"
+      ],
+      "index" : "49",
+      "info" : "První strom v řadě, napravo",
+      "name" : "U lotrasa",
+      "position" : [
+         "49.93107",
+         "13.40569"
+      ]
+   },
+   "raz" : {
+      "edges" : [
+         "*strojovna",
+         "*pramen",
+         "dopad",
+         "hruza"
+      ],
+      "index" : "42",
+      "info" : "Zezadu na sloupu",
+      "name" : "Železná",
+      "position" : [
+         "49.94028",
+         "13.38347"
+      ]
+   },
+   "rust" : {
+      "edges" : [
+         "odbor",
+         "raz",
+         "*stanice",
+         "maska"
+      ],
+      "index" : "8",
+      "info" : "Balík slámy u rozcestí",
+      "name" : "Horní vidlička",
+      "position" : [
+         "49.94028",
+         "13.34278"
+      ]
+   },
+   "sekyra" : {
+      "edges" : [
+         "*cestar"
+      ],
+      "index" : "7",
+      "info" : "Levý kontejner",
+      "name" : "Bod zlomu",
+      "position" : [
+         "49.95012",
+         "13.33977"
+      ],
+      "type" : "MEGATASK"
+   },
+   "selmy" : {
+      "edges" : [
+         "*pelikan"
+      ],
+      "index" : "25",
+      "info" : "Lavička mezi stromy",
+      "name" : "Na Pískách",
+      "position" : [
+         "49.95747",
+         "13.40925"
+      ],
+      "type" : "MEGATASK"
+   },
+   "sever" : {
+      "edges" : [
+         "pravda",
+         "*odbor",
+         "klicka",
+         "pravda"
+      ],
+      "index" : "32",
+      "info" : "Na rozvodní budce v amfiteátru, směrem na pole",
+      "name" : "Amfiteátr",
+      "position" : [
+         "49.93758",
+         "13.38630"
+      ]
+   },
+   "spagetka" : {
+      "edges" : [
+         "*pistalky"
+      ],
+      "index" : "13",
+      "info" : "na rozcestí se zelenou",
+      "name" : "U Ludvíka",
+      "position" : [
+         "49.93158",
+         "13.35398"
+      ],
+      "type" : "MEGATASK"
+   },
+   "staflik" : {
+      "edges" : [
+         "*prumer"
+      ],
+      "index" : "50",
+      "info" : "Kříž",
+      "name" : "Roklinka",
+      "position" : [
+         "49.95060",
+         "13.39093"
+      ],
+      "type" : "MEGATASK"
+   },
+   "stanice" : {
+      "edges" : [
+         "linie",
+         "*odbor",
+         "libra",
+         "zapas"
+      ],
+      "index" : "2",
+      "info" : "Elektrická budka v lese",
+      "name" : "Barokní křížek",
       "position" : [
          "49.93773",
          "13.35258"
       ]
    },
-   "sval" : {
+   "strojovna" : {
       "edges" : [
-         "*smlouva"
+         "*staflik"
       ],
-      "name" : "bomba",
+      "index" : "33",
+      "info" : "Ostrůvek stromů uprostřed pole",
+      "name" : "Střed světa",
+      "position" : [
+         "49.93671",
+         "13.381755"
+      ],
+      "type" : "MEGATASK"
+   },
+   "svah" : {
+      "edges" : [
+         "*podvod",
+         "nalevka",
+         "hruza",
+         "cas"
+      ],
+      "index" : "31",
+      "info" : "Dřevěný sloup",
+      "name" : "Sláma",
+      "position" : [
+         "49.93171",
+         "13.39543"
+      ]
+   },
+   "tlapicka" : {
+      "edges" : [
+         "*sever"
+      ],
+      "index" : "37",
+      "info" : "Strom u plotu, na rohu",
+      "name" : "Anténky",
+      "position" : [
+         "49.94218",
+         "13.40685"
+      ],
+      "type" : "MEGATASK"
+   },
+   "tramvaj" : {
+      "edges" : [
+         "*zapas",
+         "pricina",
+         "hausbot",
+         "pramen"
+      ],
+      "index" : "29",
+      "info" : "Sloup u cihlové zídky",
+      "name" : "Alej vzdechů",
+      "position" : [
+         "49.93099",
+         "13.37989"
+      ]
+   },
+   "ucel" : {
+      "edges" : [
+         "hruza",
+         "raz",
+         "zahrada",
+         "*dopad"
+      ],
+      "index" : "47",
+      "info" : "Strom (cestou z odbočky nalevo)",
+      "name" : "Na Podolí",
+      "position" : [
+         "49.93924",
+         "13.33198"
+      ]
+   },
+   "vaha" : {
+      "edges" : [
+         "hruza",
+         "odbor",
+         "strojovna",
+         "*zapas"
+      ],
+      "index" : "30",
+      "info" : "Na sloupu u parkoviště",
+      "name" : "Golfiště",
+      "position" : [
+         "49.93253",
+         "13.38899"
+      ]
+   },
+   "vyznamenani" : {
+      "edges" : [
+         "*palice"
+      ],
+      "index" : "18",
+      "info" : "Na velkém rozcestí, zezadu na tlustém stromě",
+      "name" : "U viaduktu",
+      "position" : [
+         "49.93803",
+         "13.37044"
+      ],
+      "type" : "MEGATASK"
+   },
+   "zahrada" : {
+      "edges" : [
+         "*pramen",
+         "pravda",
+         "pobocka",
+         "cas"
+      ],
+      "index" : "6",
+      "info" : "Strom před kapličkou",
+      "name" : "Vrážné",
+      "position" : [
+         "49.94968",
+         "13.33169"
+      ]
+   },
+   "zapas" : {
+      "edges" : [
+         "klicka",
+         "*koberec",
+         "klicka",
+         "hruza"
+      ],
+      "index" : "22",
+      "info" : "Vrata kostela ze S strany, pod plotem",
+      "name" : "Žebnice kostel",
       "position" : [
          "49.95609",
          "13.39158"
-      ],
-      "type" : "MEGATASK"
-   },
-   "trava" : {
-      "edges" : [
-         "*obvod",
-         "*efekt",
-         "*novina",
-         "*ulice"
-      ],
-      "name" : "pusa",
-      "position" : [
-         "49.93686",
-         "13.37987"
       ]
    },
-   "trenink" : {
+   "zapis" : {
       "edges" : [
-         "*reforma"
+         "hruza",
+         "kvetina",
+         "*selmy",
+         "hruza"
       ],
-      "name" : "dolar",
+      "index" : "23",
+      "info" : "Košatý strom vedle rybníčku",
+      "name" : "Žebnice žabák",
       "position" : [
-         "49.94345",
-         "13.37316"
-      ],
-      "type" : "MEGATASK"
-   },
-   "ucta" : {
-      "edges" : [
-         "novina",
-         "bar",
-         "trava",
-         "*pruh"
-      ],
-      "name" : "usmev",
-      "position" : [
-         "49.95165",
-         "13.39393"
-      ]
-   },
-   "ulice" : {
-      "edges" : [
-         "trava",
-         "pruh",
-         "*pravda",
-         "efekt"
-      ],
-      "name" : "salat",
-      "position" : [
-         "49.94010",
-         "13.38377"
-      ]
-   },
-   "ustav" : {
-      "edges" : [
-         "*sval"
-      ],
-      "name" : "vyhoda",
-      "position" : [
-         "49.93323",
-         "13.36366"
-      ],
-      "type" : "MEGATASK"
-   },
-   "vyskyt" : {
-      "edges" : [
-         "*trenink"
-      ],
-      "name" : "trouba",
-      "position" : [
-         "49.94128",
-         "13.34932"
-      ],
-      "type" : "MEGATASK"
-   },
-   "vzor" : {
-      "edges" : [
-         "*rozmer"
-      ],
-      "name" : "system",
-      "position" : [
-         "49.93100",
-         "13.37977"
-      ],
-      "type" : "MEGATASK"
-   },
-   "ztrata" : {
-      "edges" : [
-         "milion",
-         "ustav",
-         "*pravda",
-         "napad"
-      ],
-      "name" : "sluzba",
-      "position" : [
-         "49.92787",
-         "13.39354"
-      ]
-   },
-   "zvyk" : {
-      "edges" : [
-         "sektor",
-         "*ulice",
-         "hrozba",
-         "pravda"
-      ],
-      "name" : "krize",
-      "position" : [
-         "49.95668",
-         "13.36977"
+         "49.95588",
+         "13.39444"
       ]
    }
 }
-
 
 }
