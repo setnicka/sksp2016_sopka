@@ -35,7 +35,7 @@ if (isset($_REQUEST["code"]) && preg_match("/^\w+$/", $_REQUEST["code"])) {
 				"position" => $code,
 				"switch" => $switch
 			]);
-			$target = $site["edges"][$switch];
+			$target = $sites[$code]["edges"][$switch];
 			if ($target[0] == '*') $target = substr($target, 1);
 			$message = "Výhybka na chviličku nastavena na směr <b>".$sites[$target]["name"]."</b>.";
 		}

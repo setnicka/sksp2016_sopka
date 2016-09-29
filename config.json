@@ -7,7 +7,7 @@
 },
 "train": {
 	"started": false,
-	"starFrom": "bar",
+	"startFrom": "bar",
 	"hopTime": 120
 },
 "sites":
